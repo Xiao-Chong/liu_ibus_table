@@ -23,6 +23,28 @@
 
     輸入法 -> 選取輸入法 -> 漢語 -> 嘸蝦米
     -> 按下旁邊加入按鈕 -> 再關閉視窗即可
+    
+安裝好後，其ibus預設中文語係為簡體中文，我們要將其改為正體中文才可！
+
+編輯」/usr/share/ibus-table/engine/table.py「此檔案，檔案中有註解，說明各數字代表的語系。
+
+    # self._chinese_mode: the candidate filter mode,
+    # 0 is simplify Chinese
+    # 1 is traditional Chinese
+    # 2 is Big charset mode, but simplify Chinese first
+    # 3 is Big charset mode, but traditional Chinese first
+    # 4 is Big charset mode.
+    # we use LC_CTYPE or LANG to determine which one to use
+
+    找到下面這段，將if區塊裡的return值從0改成1
+
+    if self.db._is_chinese:
+    #if IME declare as Chinese IME
+        return 1
+    else:
+        return -1
+
+修改完存檔後， 退出ibus再重啟就ok囉!
 
 ### 字根表說明
 
